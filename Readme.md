@@ -1,4 +1,85 @@
-“Express TypeScript Backend for VoiceBot ======================================= This backend service is built with TypeScript, Express, OpenAI, AWS Polly, and S3. It processes user speech input, generates a response using the OpenAI API, synthesizes the response into speech using AWS Polly, and stores the audio on AWS S3 for retrieval. Project Overview ---------------- This project provides an API endpoint that: 1. Accepts user input. 2. Uses the OpenAI API to generate a text response. 3. Converts the generated text response into speech using AWS Polly. 4. Uploads the synthesized speech to AWS S3 and returns the audio file URL to the client. Getting Started --------------- ### 1\. Prerequisites * **Node.js and npm**: Make sure Node.js (v14 or later) and npm are installed. * **AWS Account**: Required for AWS Polly and S3 services. * **OpenAI API Key**: Required for integration with the OpenAI API. * **YouTube Reference**: Followed [this tutorial](https://www.youtube.com/watch?v=qy8PxD3alWw) to set up TypeScript with Express. ### 2\. Installation * Clone the repository and navigate to the project directory. bash Copy code `git clone <repository-url> cd <project-directory>` * Install the required dependencies: bash Copy code `npm install` ### 3\. TypeScript Configuration * The project is set up using TypeScript, which differs from normal Node.js JavaScript in terms of strict typing, type safety, and compilation. * **TypeScript Configuration File (`tsconfig.json`)**: json Copy code `{ "compilerOptions": { "target": "ES6", "module": "commonjs", "outDir": "./dist", "rootDir": "./src", "strict": true, "esModuleInterop": true, "skipLibCheck": true, "forceConsistentCasingInFileNames": true }, "include": ["index.ts"], "exclude": ["node_modules"] }` * **Project Structure**: bash Copy code `├── src │ ├── index.ts # Main entry point ├── dist # Compiled JavaScript output ├── .env # Environment variables ├── tsconfig.json # TypeScript configuration ├── package.json # Node.js configuration and scripts` ### 4\. Environment Variables Create a `.env` file in the root directory with the following: bash Copy code `PORT=your_port_number AWS_ACCESS_KEY_ID=your_aws_access_key_id AWS_SECRET_ACCESS_KEY=your_aws_secret_access_key AWS_REGION=your_aws_region S3_BUCKET_NAME=your_s3_bucket_name OPENAI_API_KEY=your_openai_api_key` ### 5\. Start the Server To compile the TypeScript code and start the server, run: bash Copy code `npm run build # Compiles TypeScript to JavaScript npm run start # Starts the compiled server` ### 6\. API Endpoints * **POST `/api/chat`**: Accepts a message from the client, generates a response using OpenAI, synthesizes it using AWS Polly, and returns the URL of the synthesized speech stored in S3. * **GET `/`**: A simple health check endpoint to verify that the server is running. Key Implementations ------------------- ### TypeScript Integration * The backend is built using **TypeScript**, which offers strong typing and improved development experience over traditional JavaScript: * **Type Safety**: Ensures all variables, functions, and parameters are typed, minimizing runtime errors. * **TypeScript Compiler**: The code is transpiled from TypeScript to JavaScript using the TypeScript compiler (`tsc`), which checks for type correctness. ### OpenAI Integration * **OpenAI API** is used to generate text responses: * The API call uses streaming to process responses concurrently, providing a more interactive and real-time experience. ### AWS Polly Integration * **AWS Polly** is used to synthesize text responses into speech: * Converts the generated text from OpenAI into an MP3 audio stream. ### AWS S3 Integration * **AWS S3** is used to store the generated audio files: * After generating the audio, it's uploaded to S3 using unique filenames. * The audio files are made publicly accessible to allow clients to fetch and play them. ### Error Handling * **Error Handling** is implemented to manage common HTTP statuses: * **401 Unauthorized**: Handles cases where the user is not authorized. * **404 Not Found**: Handles cases where the resource is not found. * **429 Too Many Requests**: Handles rate-limiting scenarios. Future Improvements ------------------- * Enhance error handling for more granular control over different error types. * Implement more advanced NLP models or fine-tune existing ones for better response quality. * Add more customization options for AWS Polly voices. References ---------- * [YouTube Tutorial](https://www.youtube.com/watch?v=qy8PxD3alWw) on setting up TypeScript with Express. Conclusion ---------- This project provides a solid foundation for building voice-interactive applications using TypeScript, Express, AWS, and OpenAI, leveraging a variety of cloud services to enhance user experience and provide dynamic, real-time responses.”
+# Express TypeScript Backend for VoiceBot
 
+This backend service is built with TypeScript, Express, OpenAI, AWS Polly, and S3. It processes user speech input, generates a response using the OpenAI API, synthesizes the response into speech using AWS Polly, and stores the audio on AWS S3 for retrieval.
 
+## Project Overview
 
+This project provides an API endpoint that:
+
+1. Accepts user input.
+2. Uses the OpenAI API to generate a text response.
+3. Converts the generated text response into speech using AWS Polly.
+4. Uploads the synthesized speech to AWS S3 and returns the audio file URL to the client.
+
+## Getting Started
+
+### 1. Prerequisites
+
+- **Node.js and npm**: Make sure Node.js (v14 or later) and npm are installed.
+- **AWS Account**: Required for AWS Polly and S3 services.
+- **OpenAI API Key**: Required for integration with the OpenAI API.
+- **YouTube Reference**: Followed [this tutorial](https://www.youtube.com/watch?v=qy8PxD3alWw) to set up TypeScript with Express.
+
+### 2. Installation
+
+Clone the repository and navigate to the project directory.
+
+```bash
+git clone <repository-url>
+cd <project-directory>
+
+### 3. API Endpoints
+
+- **POST `/api/chat`**: Accepts a message from the client, generates a response using OpenAI, synthesizes it using AWS Polly, and returns the URL of the synthesized speech stored in S3.
+
+- **GET `/`**: A simple health check endpoint to verify that the server is running.
+
+## Key Implementations
+
+### TypeScript Integration
+
+The backend is built using TypeScript, which offers strong typing and improved development experience over traditional JavaScript:
+
+- **Type Safety**: Ensures all variables, functions, and parameters are typed, minimizing runtime errors.
+- **TypeScript Compiler**: The code is transpiled from TypeScript to JavaScript using the TypeScript compiler (`tsc`), which checks for type correctness.
+
+### OpenAI Integration
+
+OpenAI API is used to generate text responses:
+
+- The API call uses streaming to process responses concurrently, providing a more interactive and real-time experience.
+
+### AWS Polly Integration
+
+AWS Polly is used to synthesize text responses into speech:
+
+- Converts the generated text from OpenAI into an MP3 audio stream.
+
+### AWS S3 Integration
+
+AWS S3 is used to store the generated audio files:
+
+- After generating the audio, it's uploaded to S3 using unique filenames.
+- The audio files are made publicly accessible to allow clients to fetch and play them.
+
+### Error Handling
+
+Error handling is implemented to manage common HTTP statuses:
+
+- **401 Unauthorized**: Handles cases where the user is not authorized.
+- **404 Not Found**: Handles cases where the resource is not found.
+- **429 Too Many Requests**: Handles rate-limiting scenarios.
+
+## Future Improvements
+
+- Enhance error handling for more granular control over different error types.
+- Implement more advanced NLP models or fine-tune existing ones for better response quality.
+- Add more customization options for AWS Polly voices.
+
+## References
+
+- [YouTube Tutorial on setting up TypeScript with Express](https://www.youtube.com/watch?v=qy8PxD3alWw).
+
+## Conclusion
+
+This project provides a solid foundation for building voice-interactive applications using TypeScript, Express, AWS, and OpenAI, leveraging a variety of cloud services to enhance user experience and provide dynamic, real-time responses.
