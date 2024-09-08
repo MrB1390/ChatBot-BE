@@ -27,8 +27,8 @@ Clone the repository and navigate to the project directory.
 ```bash
 git clone <repository-url>
 cd <project-directory>
-
-### 3. API Endpoints
+```
+### 3.API Endpoints
 
 - **POST `/api/chat`**: Accepts a message from the client, generates a response using OpenAI, synthesizes it using AWS Polly, and returns the URL of the synthesized speech stored in S3.
 
